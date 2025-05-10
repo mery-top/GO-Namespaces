@@ -1,0 +1,19 @@
+type SysProcAttr struct {
+    Cloneflags      uintptr // Flags to control the behavior of the clone syscall
+    Pdeathsig       syscall.Signal // Signal sent to parent when child dies
+    Setpgid         bool // Set child’s process group ID
+    Setsid           bool // Set child as session leader
+    Credential      *syscall.Credential // Set the child’s user credentials
+    Chroot          string // Set root directory for child
+    UidMappings     []syscall.SysProcIDMap // User ID mappings for child
+    GidMappings     []syscall.SysProcIDMap // Group ID mappings for child
+    Utsname         *syscall.Utsname // Set child’s hostname
+}
+
+
+🔹 What is SysProcAttr?
+SysProcAttr is a Go struct that allows you to set various system-specific attributes when creating a new process using exec.Command(). It’s part of the os/exec package, and it lets you customize things like:
+Which namespace the process should run in (e.g., PID, network, mount, etc.).
+Whether to set credentials (user/group).
+How the new process should behave (e.g., whether it should run in the background, etc.).
+
